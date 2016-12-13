@@ -116,6 +116,15 @@ function replaceTextContent(otherContent) {
     $(".tab-content > #fac").html(otherContent);
 }
 
+
+function addCopyToCLipboardButtons() {
+    var tabs = ['#ack', '#bib', '#fac'];
+    for (i = 0; i < tabs.length; i++) {
+        var tab = tabs[i];
+        $(".tab-content > "+tab).append("<button class=\"btn btn-default\" data-clipboard-target=\""+tab+"\"><i class=\"fa fa-clipboard\" aria-hidden=\"true\"></i></button> ");
+    }
+}
+
 function appendAckBibFacText(entry) {
     var ack_text = (entry.latex !== undefined) ? entry.latex : entry.text;
     $(".tab-content > #ack").append(ack_text+"&nbsp;");
@@ -135,6 +144,7 @@ function buildAckBibFacText() {
     }
     else {
         replaceTextContent("");
+        addCopyToCLipboardButtons();
 
         $.each(selectedCheckboxes, function(i, box) {
             var name = $(box).val();
